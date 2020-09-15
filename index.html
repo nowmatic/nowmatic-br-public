@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nowmatic</title>
   <link rel="stylesheet" href="assets/style/index.css">
 </head>
+
 <body>
   <main>
     <header>
@@ -14,7 +16,8 @@
         <div class="content col">
           <h4 class="brand">Brand</h4>
           <h1 class="title">Trabalhando para empresas nos EUA?</h1>
-          <h3 class="subtitle">Nowmatic (está trabalhando no) é o jeito mais rápido e barato para brasileiros receberem dinheiro de empresas americanas.</h3>
+          <h3 class="subtitle">Nowmatic (está trabalhando no) é o jeito mais rápido e barato para brasileiros receberem
+            dinheiro de empresas americanas.</h3>
 
           <form class="waitlist-form" action="">
             <label for="email">
@@ -22,10 +25,10 @@
             </label>
             <div class="row">
               <div class="col">
-                <input name="email" type="email" placeholder="Informe seu e-mail">
+                <input id="input-email" name="email" type="email" placeholder="Informe seu e-mail">
               </div>
               <div class="col">
-                <button type="submit">Entre na lista de espera</button>
+                <button id="submit" type="submit">Entre na lista de espera</button>
               </div>
             </div>
             <p class="bottom-line">Oferta por tempo limitado</p>
@@ -34,6 +37,7 @@
         <div class="col">
           <div class="image header"></div>
         </div>
+        <div id="output" class="container"></div>
       </div>
     </header>
 
@@ -42,5 +46,28 @@
     <section></section>
     <footer></footer>
   </main>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    (function () {
+      const ZAPIER_HOOK_URL = 'https://hooks.zapier.com/hooks/catch/3286889/ow3eqxg/';
+      var output = document.getElementById('output');
+
+      document.getElementById('submit').onclick = function () {
+        event.preventDefault();
+
+        var email = document.getElementById('input-email').value;
+
+        axios.post(ZAPIER_HOOK_URL, JSON.stringify({ email: email }))
+          .then(function (res) {
+            // TODO: show success message
+          })
+          .catch(function (err) {
+            // TODO: show error;
+          });
+      };
+    })();
+  </script>
 </body>
+
 </html>
