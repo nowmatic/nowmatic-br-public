@@ -31,13 +31,12 @@
                 <button id="submit" type="submit">Entre na lista de espera</button>
               </div>
             </div>
-            <p class="bottom-line">Oferta por tempo limitado</p>
+            <p id="output" class="bottom-line text-grey">Oferta por tempo limitado</p>
           </form>
         </div>
         <div class="col">
           <div class="image header"></div>
         </div>
-        <div id="output" class="container"></div>
       </div>
     </header>
 
@@ -51,19 +50,24 @@
   <script>
     (function () {
       const ZAPIER_HOOK_URL = 'https://hooks.zapier.com/hooks/catch/3286889/ow3eqxg/';
-      var output = document.getElementById('output');
+      const SUCCESS_MSG = 'Sucesso! Obrigado por fazer parte da nowmatic!';
+      const ERROR_MSG = 'Ocorreu um erro, por favor tente novamente em instantes.';
+
+      const output = document.getElementById('output');
 
       document.getElementById('submit').onclick = function () {
         event.preventDefault();
 
-        var email = document.getElementById('input-email').value;
+        const email = document.getElementById('input-email').value;
 
         axios.post(ZAPIER_HOOK_URL, JSON.stringify({ email: email }))
           .then(function (res) {
-            // TODO: show success message
+            output.className = 'bottom-line text-success';
+            output.innerHTML = SUCCESS_MSG;
           })
           .catch(function (err) {
-            // TODO: show error;
+            output.className = 'bottom-line text-error';
+            output.innerHTML = ERROR_MSG;
           });
       };
     })();
